@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LocaleString extends Translations{
+
+  static final locale =  Locale('fa', 'IR');
 
   @override
   Map<String, Map<String, String>> get keys => {

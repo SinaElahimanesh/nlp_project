@@ -28,7 +28,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: Text(
             'title'.tr,
             style: TextStyle(
-                fontSize: 20.0,
+                fontSize: 18.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
                 fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -48,7 +48,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           Text(
                             'settings_title'.tr,
                             style: TextStyle(
-                                fontSize: 20.0,
+                                fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                                 fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -83,7 +83,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         Text(
                                           'lang_fa'.tr,
                                           style: TextStyle(
-                                              fontSize: 20.0,
+                                              fontSize: 18.0,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black,
                                               fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -124,7 +124,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         Text(
                                           'lang_en'.tr,
                                           style: TextStyle(
-                                              fontSize: 20.0,
+                                              fontSize: 18.0,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black,
                                               fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -165,7 +165,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         'Ⓒ 2021 NLP Team'.tr,
                         textAlign: TextAlign.justify,
                         style: TextStyle(
-                            fontSize: 17.0,
+                            fontSize: 16.5,
                             // fontWeight: FontWeight.bold,
                             color: Colors.grey,
                             fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'

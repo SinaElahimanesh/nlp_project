@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -102,18 +103,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final box = GetStorage();
-    var langLocale = Locale('fa','IR');
-    if(box.hasData('lang')) {
-      if(box.read('lang') == 'en') {
-        langLocale = Locale('en','US');
-      }
-    }
-    return GetMaterialApp(
-      translations: LocaleString(),
-      locale: langLocale,
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return Scaffold(
         backgroundColor: const Color(0xfff3ffff),
         appBar: AppBar(
           backgroundColor: const Color(0xfffaa51a),
@@ -124,7 +114,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
           title: Text(
             'title'.tr,
             style: TextStyle(
-                fontSize: 20.0,
+                fontSize: 18.0,
                 // fontWeight: FontWeight.bold,
                 color: Colors.white,
                 fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -153,7 +143,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                                 Text(
                                   'drawer'.tr,
                                   style: TextStyle(
-                                      fontSize: 20.0,
+                                      fontSize: 18.0,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                       fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -168,7 +158,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                   title: Text(
                     'item1'.tr,
                     style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: 18.0,
                         fontWeight: FontWeight.bold,
                         color: const Color(0xff55c4cd),
                         fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -184,7 +174,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                   title: Text(
                     'item2'.tr,
                     style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: 18.0,
                         fontWeight: FontWeight.bold,
                         color: const Color(0xff55c4cd),
                         fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -200,7 +190,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                   title: Text(
                     'item3'.tr,
                     style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: 18.0,
                         fontWeight: FontWeight.bold,
                         color: const Color(0xff55c4cd),
                         fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -218,8 +208,6 @@ class _RecordingScreenState extends State<RecordingScreen> {
         body: Stack(
           children: [
             Center(
-              child: Padding(
-                padding: Get.locale==Locale('fa','IR')? EdgeInsets.only(right: 20) : EdgeInsets.only(left: 20),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -267,7 +255,6 @@ class _RecordingScreenState extends State<RecordingScreen> {
                       ),
                   ],
                 ),
-              )
             ),
             Positioned(
               top: 10,
@@ -281,17 +268,16 @@ class _RecordingScreenState extends State<RecordingScreen> {
                   child: Text(
                     'text'.tr,
                     style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: 17.5,
                         // fontWeight: FontWeight.bold,
                         color: Colors.white,
                         fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
                     ),
                   ),
-                ))
+                )
+            )
           ],
-        )
-      ),
-    );
+        ));
   }
 
   Color handleAudioColour() {
