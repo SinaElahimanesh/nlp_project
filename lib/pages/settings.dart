@@ -14,12 +14,43 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _value = false;
-  var val;
+  Object? val = 0;
   final box = GetStorage();
+
+  bool model1 = true;
+  bool model2 = false;
+  bool model3 = false;
 
   @override
   Widget build(BuildContext context) {
+    final box = GetStorage();
+    if(box.hasData('model1')) {
+      if(box.read('model1') == 'true') {
+        model1 = true;
+      } else {
+        model1 = false;
+      }
+    }
+    if(box.hasData('model2')) {
+      if(box.read('model2') == 'true') {
+        model2 = true;
+      } else {
+        model2 = false;
+      }
+    }
+    if(box.hasData('model3')) {
+      if(box.read('model3') == 'true') {
+        model3 = true;
+      } else {
+        model3 = false;
+      }
+    }
+    if(box.hasData('lang')) {
+      if(box.read('lang') == 'en') {
+        val = 1;
+      }
+    }
+
     return Scaffold(
         backgroundColor: SettingsScreen.primaryColor,
         appBar: AppBar(
@@ -60,23 +91,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             indent: 20,
                             endIndent: 20,
                           ),
-                          Padding(padding: EdgeInsets.only(top: 10)),
-                          Text(
-                            'lang_description'.tr,
-                            style: TextStyle(
-                                fontSize: 17.0,
-                                color: Colors.black,
-                                fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
-                            ),
+                          Padding(padding: EdgeInsets.only(top: 20)),
+                          Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                              child: Text(
+                                'lang_description'.tr,
+                                style: TextStyle(
+                                    fontSize: 17.0,
+                                    color: Colors.black,
+                                    fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
+                                ),
+                              ),
                           ),
-                          Padding(padding: EdgeInsets.only(top: 30)),
+                          Padding(padding: EdgeInsets.only(top: 10)),
                           Container(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 ListTile(
                                   title: Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 4, horizontal: 15),
+                                    padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
@@ -97,7 +132,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     ),
                                   ),
                                   leading: Radio(
-                                    value: 1,
+                                    value: 0,
                                     groupValue: val,
                                     onChanged: (value) {
                                       setState(() {
@@ -117,7 +152,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 ),
                                 ListTile(
                                   title: Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 4, horizontal: 15),
+                                    padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
@@ -138,7 +173,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     ),
                                   ),
                                   leading: Radio(
-                                    value: 2,
+                                    value: 1,
                                     groupValue: val,
                                     onChanged: (value) {
                                       setState(() {
@@ -152,7 +187,114 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 ),
                               ],
                             )
-                          )
+                          ),
+                          const Divider(
+                            height: 20,
+                            thickness: 2,
+                            indent: 20,
+                            endIndent: 20,
+                          ),
+                          Padding(padding: EdgeInsets.only(top: 40)),
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+                            child: Text(
+                              'model_description'.tr,
+                              style: TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,
+                                  fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
+                              ),
+                            ),
+                          ),
+                          Padding(padding: EdgeInsets.only(top: 10)),
+                          Row(
+                            children: <Widget>[
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Checkbox(
+                                value: this.model1,
+                                onChanged: (value) {
+                                  setState(() {
+                                    this.model1 = value!;
+                                    if(value==true) {
+                                      box.write('model1', 'true');
+                                    } else {
+                                      box.write('model1', 'false');
+                                    }
+                                  });
+                                },
+                              ),
+                              Text(
+                                'model1'.tr,
+                                style: TextStyle(
+                                    fontSize: 17.0,
+                                    color: Colors.black,
+                                    fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
+                                ),
+                              ),
+                              SizedBox(width: 10), //SizedBox
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Checkbox(
+                                value: this.model2,
+                                onChanged: (value) {
+                                  setState(() {
+                                    this.model2 = value!;
+                                    if(value==true) {
+                                      box.write('model2', 'true');
+                                    } else {
+                                      box.write('model2', 'false');
+                                    }
+                                  });
+                                },
+                              ),
+                              Text(
+                                'model2'.tr,
+                                style: TextStyle(
+                                    fontSize: 17.0,
+                                    color: Colors.black,
+                                    fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
+                                ),
+                              ),
+                              SizedBox(width: 10), //SizedBox
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Checkbox(
+                                value: this.model3,
+                                onChanged: (value) {
+                                  setState(() {
+                                    this.model3 = value!;
+                                    if(value==true) {
+                                      box.write('model3', 'true');
+                                    } else {
+                                      box.write('model3', 'false');
+                                    }
+                                  });
+                                },
+                              ),
+                              Text(
+                                'model3'.tr,
+                                style: TextStyle(
+                                    fontSize: 17.0,
+                                    color: Colors.black,
+                                    fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
+                                ),
+                              ),
+                              SizedBox(width: 10), //SizedBox
+                            ],
+                          ),
                         ]
                     )
                 ),

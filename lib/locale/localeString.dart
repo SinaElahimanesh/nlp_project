@@ -27,6 +27,13 @@ class LocaleString extends Translations{
       'lang_description': 'You can choose the language of the application.',
       'lang_fa': 'Persian',
       'lang_en': 'English',
+      'model_description': 'You can choose language models which you want to see the results about.',
+      'model1': 'Model number 1',
+      'model2': 'Model number 2',
+      'model3': 'Google',
+      'model1_title': 'Model number 1:  ',
+      'model2_title': 'Model number 2:  ',
+      'model3_title': 'Google:  ',
     },
 
     //PERSIAN LANGUAGE
@@ -48,6 +55,13 @@ class LocaleString extends Translations{
       'lang_description': 'می توانید زبان برنامه را انتخاب نمایید.',
       'lang_fa': 'فارسی',
       'lang_en': 'انگلیسی',
+      'model_description': 'می توانید مدل های زبانی که می خواهید نتیجه ی آنها را دریافت کنید، انتخاب نمایید.',
+      'model1': 'مدل شماره ۱',
+      'model2': 'مدل شماره ۲',
+      'model3': 'گوگل',
+      'model1_title': 'مدل شماره ۱:  ',
+      'model2_title': 'مدل شماره ۲:  ',
+      'model3_title': 'گوگل:  ',
     },
   };
 }

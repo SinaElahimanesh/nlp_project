@@ -103,6 +103,31 @@ class _RecordingScreenState extends State<RecordingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final box = GetStorage();
+    var model1 = true;
+    var model2 = false;
+    var model3 = false;
+    if(box.hasData('model1')) {
+      if(box.read('model1') == 'true') {
+        model1 = true;
+      } else {
+        model1 = false;
+      }
+    }
+    if(box.hasData('model2')) {
+      if(box.read('model2') == 'true') {
+        model2 = true;
+      } else {
+        model2 = false;
+      }
+    }
+    if(box.hasData('model3')) {
+      if(box.read('model3') == 'true') {
+        model3 = true;
+      } else {
+        model3 = false;
+      }
+    }
     return Scaffold(
         backgroundColor: const Color(0xfff3ffff),
         appBar: AppBar(
@@ -167,7 +192,8 @@ class _RecordingScreenState extends State<RecordingScreen> {
                   onTap: () {
                     // Update the state of the app.
                     // ...
-                    Get.to(SettingsScreen());
+                    Get.to(SettingsScreen())!.then((value) => setState(() {
+                    }));
                   },
                 ),
                 ListTile(
@@ -257,25 +283,107 @@ class _RecordingScreenState extends State<RecordingScreen> {
                 ),
             ),
             Positioned(
-              top: 10,
+                top: 10,
                 right: 0,
                 left: 0,
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
-                  padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 12.0),
-                  color: const Color(0xff55c4cd),
-                  width: double.infinity,
-                  child: Text(
-                    'text'.tr,
-                    style: TextStyle(
-                        fontSize: 17.5,
-                        // fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
+                child: Column(
+                  children: [
+                    Visibility(
+                        visible: model1,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
+                          padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 12.0),
+                          color: const Color(0xff55c4cd),
+                          width: double.infinity,
+                            child: RichText(
+                              text: TextSpan(
+                                text: 'model1_title'.tr,
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 17.5,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
+                                ),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: 'text'.tr,
+                                    style: TextStyle(
+                                        fontSize: 16.5,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.white,
+                                        fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                        )
                     ),
-                  ),
+                    Visibility(
+                        visible: model2,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
+                          padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 12.0),
+                          color: const Color(0xff55c4cd),
+                          width: double.infinity,
+                          child: RichText(
+                            text: TextSpan(
+                              text: 'model2_title'.tr,
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 17.5,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: 'text'.tr,
+                                  style: TextStyle(
+                                      fontSize: 16.5,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.white,
+                                      fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        )
+                    ),
+                    Visibility(
+                        visible: model3,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
+                          padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 12.0),
+                          color: const Color(0xff55c4cd),
+                          width: double.infinity,
+                            child: RichText(
+                              text: TextSpan(
+                                text: 'model3_title'.tr,
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 17.5,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
+                                ),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: 'text'.tr,
+                                    style: TextStyle(
+                                        fontSize: 16.5,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.white,
+                                        fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                        )
+                    )
+                  ],
                 )
-            )
+            ),
           ],
         ));
   }
