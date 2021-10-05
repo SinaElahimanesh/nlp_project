@@ -38,6 +38,7 @@ dev_dependencies:
   audioplayers: ^0.20.1
   record: ^3.0.0
   path_provider: ^2.0.1
+  speech_to_text: ^5.1.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

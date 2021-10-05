@@ -11,7 +11,7 @@ import 'package:nlp_final_project/pages/settings.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 import 'package:get_storage/get_storage.dart';
-import 'locale/localeString.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 enum AudioState { nulll, recording, stop, play }
 
@@ -30,6 +30,13 @@ class _RecordingScreenState extends State<RecordingScreen> {
   // MicrophoneRecorder _recorder;
   late Record _record;
   late AudioPlayer _audioPlayer;
+  late stt.SpeechToText _speech;
+  //
+  var model1 = true;
+  var model2 = false;
+  var model3 = false;
+  //
+  var model3_text = 'text'.tr;
 
   @override
   void initState() {
@@ -37,6 +44,8 @@ class _RecordingScreenState extends State<RecordingScreen> {
     // _recorder = MicrophoneRecorder()..init();
     // Check and request permission
     _record = Record();
+    _speech = stt.SpeechToText();
+    //
   }
 
   void recording() async {
@@ -73,18 +82,58 @@ class _RecordingScreenState extends State<RecordingScreen> {
     });
   }
 
+  void googleSpeechRecognition() async {
+    bool available = await _speech.initialize(
+      onStatus: (val) => print('onStatus: $val'),
+      onError: (val) => print('onError: $val'),
+      // debugLogging: true,
+    );
+    var locales = await _speech.locales();
+    var selectedLocale = locales[75];
+    for(var i=0; i<locales.length; i++) {
+      print(i);
+      print(" is ");
+      print(locales[i].name);
+      if(locales[i].name == 'Persian (Iran)') {
+        selectedLocale = locales[i];
+        break;
+      } else if(locales[i].name == 'فارسی (ایران)') {
+        selectedLocale = locales[i];
+        break;
+      }
+    }
+    if (available) {
+      _speech.listen(
+        onResult: (val) => setState(() {
+          print(val.recognizedWords);
+          setState(() {
+            model3_text = val.recognizedWords;
+          });
+          if (val.hasConfidenceRating && val.confidence > 0) {
+            // _confidence = val.confidence;
+          }
+        }),
+        localeId: selectedLocale.localeId,
+      );
+    }
+}
+
   void handleAudioState(AudioState state) {
+    if (audioState == AudioState.nulll) {
+     googleSpeechRecognition();
+    }
     setState(() {
       if (audioState == AudioState.nulll) {
         // Starts recording
         audioState = AudioState.recording;
         // _recorder.start();
-        recording();
+        // recording();
         // Finished recording
       } else if (audioState == AudioState.recording) {
         audioState = AudioState.play;
         // _recorder.stop();
         stop();
+        _speech.stop();
         // Play recorded audio
       } else if (audioState == AudioState.play) {
         audioState = AudioState.stop;
@@ -104,9 +153,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
   @override
   Widget build(BuildContext context) {
     final box = GetStorage();
-    var model1 = true;
-    var model2 = false;
-    var model3 = false;
+
     if(box.hasData('model1')) {
       if(box.read('model1') == 'true') {
         model1 = true;
@@ -134,7 +181,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
           backgroundColor: const Color(0xfffaa51a),
           backwardsCompatibility: false,
           systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: const Color(0xfffaa51a)),
-          toolbarHeight: 70.0,
+          toolbarHeight: 60.0,
           centerTitle: true,
           title: Text(
             'title'.tr,
@@ -233,7 +280,9 @@ class _RecordingScreenState extends State<RecordingScreen> {
         ),
         body: Stack(
           children: [
-            Center(
+            Padding(
+              padding: EdgeInsets.only(top: 32.0),
+              child: Center(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -281,9 +330,10 @@ class _RecordingScreenState extends State<RecordingScreen> {
                       ),
                   ],
                 ),
+              ),
             ),
             Positioned(
-                top: 10,
+                top: 4,
                 right: 0,
                 left: 0,
                 child: Column(
@@ -292,7 +342,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                         visible: model1,
                         child: Container(
                           margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
-                          padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 12.0),
+                          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
                           color: const Color(0xff55c4cd),
                           width: double.infinity,
                             child: RichText(
@@ -308,7 +358,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                                   TextSpan(
                                     text: 'text'.tr,
                                     style: TextStyle(
-                                        fontSize: 16.5,
+                                        fontSize: 15.5,
                                         fontWeight: FontWeight.normal,
                                         color: Colors.white,
                                         fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -323,7 +373,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                         visible: model2,
                         child: Container(
                           margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
-                          padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 12.0),
+                          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
                           color: const Color(0xff55c4cd),
                           width: double.infinity,
                           child: RichText(
@@ -339,7 +389,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                                 TextSpan(
                                   text: 'text'.tr,
                                   style: TextStyle(
-                                      fontSize: 16.5,
+                                      fontSize: 15.5,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.white,
                                       fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -354,7 +404,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                         visible: model3,
                         child: Container(
                           margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
-                          padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 12.0),
+                          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
                           color: const Color(0xff55c4cd),
                           width: double.infinity,
                             child: RichText(
@@ -368,9 +418,9 @@ class _RecordingScreenState extends State<RecordingScreen> {
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: 'text'.tr,
+                                    text: model3_text,
                                     style: TextStyle(
-                                        fontSize: 16.5,
+                                        fontSize: 15.5,
                                         fontWeight: FontWeight.normal,
                                         color: Colors.white,
                                         fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'

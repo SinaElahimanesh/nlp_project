@@ -72,8 +72,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Container(
                     color: Colors.white,
                     width: double.infinity,
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 40),
-                    margin: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 30),
+                    margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
                     child: Column(
                         children: [
                           Text(
@@ -91,20 +91,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             indent: 20,
                             endIndent: 20,
                           ),
-                          Padding(padding: EdgeInsets.only(top: 20)),
+                          Padding(padding: EdgeInsets.only(top: 10)),
                           Container(
                               width: double.infinity,
                               padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
                               child: Text(
                                 'lang_description'.tr,
                                 style: TextStyle(
-                                    fontSize: 17.0,
+                                    fontSize: 16.5,
                                     color: Colors.black,
                                     fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
                                 ),
                               ),
                           ),
-                          Padding(padding: EdgeInsets.only(top: 10)),
+                          Padding(padding: EdgeInsets.only(top: 5)),
                           Container(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -145,7 +145,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   ),
                                 ),
                                 const Divider(
-                                  height: 20,
+                                  height: 10,
                                   thickness: 2,
                                   indent: 20,
                                   endIndent: 20,
@@ -194,7 +194,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             indent: 20,
                             endIndent: 20,
                           ),
-                          Padding(padding: EdgeInsets.only(top: 40)),
+                          Padding(padding: EdgeInsets.only(top: 25)),
                           Container(
                             width: double.infinity,
                             padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
@@ -207,11 +207,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               ),
                             ),
                           ),
-                          Padding(padding: EdgeInsets.only(top: 10)),
+                          Padding(padding: EdgeInsets.only(top: 3)),
                           Row(
                             children: <Widget>[
                               SizedBox(
-                                width: 10,
+                                width: 5,
                               ),
                               Checkbox(
                                 value: this.model1,
@@ -229,18 +229,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               Text(
                                 'model1'.tr,
                                 style: TextStyle(
-                                    fontSize: 17.0,
+                                    fontSize: 16.5,
                                     color: Colors.black,
                                     fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
                                 ),
                               ),
-                              SizedBox(width: 10), //SizedBox
+                              SizedBox(width: 5), //SizedBox
                             ],
                           ),
                           Row(
                             children: <Widget>[
                               SizedBox(
-                                width: 10,
+                                width: 5,
                               ),
                               Checkbox(
                                 value: this.model2,
@@ -258,18 +258,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               Text(
                                 'model2'.tr,
                                 style: TextStyle(
-                                    fontSize: 17.0,
+                                    fontSize: 16.5,
                                     color: Colors.black,
                                     fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
                                 ),
                               ),
-                              SizedBox(width: 10), //SizedBox
+                              SizedBox(width: 5), //SizedBox
                             ],
                           ),
                           Row(
                             children: <Widget>[
                               SizedBox(
-                                width: 10,
+                                width: 5,
                               ),
                               Checkbox(
                                 value: this.model3,
@@ -287,12 +287,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               Text(
                                 'model3'.tr,
                                 style: TextStyle(
-                                    fontSize: 17.0,
+                                    fontSize: 16.5,
                                     color: Colors.black,
                                     fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
                                 ),
                               ),
-                              SizedBox(width: 10), //SizedBox
+                              SizedBox(width: 5), //SizedBox
                             ],
                           ),
                         ]
