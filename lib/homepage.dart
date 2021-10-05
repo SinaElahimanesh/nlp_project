@@ -120,7 +120,9 @@ class _RecordingScreenState extends State<RecordingScreen> {
 
   void handleAudioState(AudioState state) {
     if (audioState == AudioState.nulll) {
-     googleSpeechRecognition();
+      // if(model3) {
+        googleSpeechRecognition();
+      // }
     }
     setState(() {
       if (audioState == AudioState.nulll) {
@@ -128,12 +130,19 @@ class _RecordingScreenState extends State<RecordingScreen> {
         audioState = AudioState.recording;
         // _recorder.start();
         // recording();
+        // if((model1 || model2) && !model3) {
+        //   recording();
+        // }
         // Finished recording
       } else if (audioState == AudioState.recording) {
         audioState = AudioState.play;
         // _recorder.stop();
-        stop();
-        _speech.stop();
+        // stop();
+        // if(model3) {
+          _speech.stop();
+        // } else if(model1 || model2) {
+        //   stop();
+        // }
         // Play recorded audio
       } else if (audioState == AudioState.play) {
         audioState = AudioState.stop;
