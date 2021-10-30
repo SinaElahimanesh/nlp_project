@@ -156,13 +156,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
-  json_annotation:
-    dependency: transitive
-    description:
-      name: json_annotation
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.3.0"
   logger:
     dependency: transitive
     description:
@@ -233,13 +226,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.3"
-  pedantic:
-    dependency: transitive
-    description:
-      name: pedantic
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.11.1"
   platform:
     dependency: transitive
     description:
@@ -275,27 +261,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
-  record:
-    dependency: "direct dev"
-    description:
-      name: record
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
-  record_platform_interface:
-    dependency: transitive
-    description:
-      name: record_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0"
-  record_web:
-    dependency: transitive
-    description:
-      name: record_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -308,20 +273,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.1"
-  speech_to_text:
-    dependency: "direct dev"
-    description:
-      name: speech_to_text
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.1.1"
-  speech_to_text_platform_interface:
-    dependency: transitive
-    description:
-      name: speech_to_text_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
   stack_trace:
     dependency: transitive
     description:

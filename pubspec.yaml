@@ -36,9 +36,9 @@ dev_dependencies:
   get: ^4.3.8
   get_storage: ^2.0.3
   audioplayers: ^0.20.1
-  record: ^3.0.0
+#  record: ^3.0.0
   path_provider: ^2.0.5
-  speech_to_text: ^5.1.1
+#  speech_to_text: ^5.1.1
   http: ^0.13.4
   flutter_sound_lite: ^8.3.9
 

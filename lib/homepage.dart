@@ -11,9 +11,9 @@ import 'package:nlp_final_project/pages/about.dart';
 import 'package:nlp_final_project/pages/contact.dart';
 import 'package:nlp_final_project/pages/settings.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:record/record.dart';
+// import 'package:record/record.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
+// import 'package:speech_to_text/speech_to_text.dart' as stt;
 //
 import 'package:path/path.dart';
 import 'package:async/async.dart';
@@ -35,9 +35,9 @@ class RecordingScreen extends StatefulWidget {
 class _RecordingScreenState extends State<RecordingScreen> {
   late AudioState audioState = AudioState.nulll;
   // MicrophoneRecorder _recorder;
-  late Record _record;
+  // late Record _record;
   late AudioPlayer _audioPlayer;
-  late stt.SpeechToText _speech;
+  // late stt.SpeechToText _speech;
   //
   var model1 = true;
   var model2 = false;
@@ -47,8 +47,10 @@ class _RecordingScreenState extends State<RecordingScreen> {
 
   late bool resp1 = false;
   late bool resp2 = false;
+  late bool resp3 = false;
   late String resp1_text = '';
   late String resp2_text = '';
+  late String resp3_text = '';
 
   late flutter_sound.FlutterSoundRecorder flutterSoundRecorder;
 
@@ -57,8 +59,8 @@ class _RecordingScreenState extends State<RecordingScreen> {
     super.initState();
     // _recorder = MicrophoneRecorder()..init();
     // Check and request permission
-    _record = Record();
-    _speech = stt.SpeechToText();
+    // _record = Record();
+    // _speech = stt.SpeechToText();
     flutterSoundRecorder = flutter_sound.FlutterSoundRecorder();
     flutterSoundRecorder.openAudioSession().then((value) {
       setState(() {
@@ -147,6 +149,9 @@ class _RecordingScreenState extends State<RecordingScreen> {
           } else if(which==1) {
             resp2 = true;
             resp2_text = value;
+          } else if(which==2) {
+            resp3 = true;
+            resp3_text = value;
           }
         });
       });
@@ -187,12 +192,20 @@ class _RecordingScreenState extends State<RecordingScreen> {
       // });
       // _flutterFFmpeg.execute("ffmpeg -i $path/test.wav $path/out.wav").then((rc) => print("FFmpeg process exited with rc $rc"));
 
-    } else if(model2) {
+    }
+    if(model2) {
       Directory appDocumentsDirectory = await getApplicationDocumentsDirectory(); // 1
       String path = appDocumentsDirectory.path;
       // final FlutterFFmpeg _flutterFFmpeg = new FlutterFFmpeg();
       // _flutterFFmpeg.execute("ffmpeg -i $path/test.wav $path/out.wav").then((rc) => print("FFmpeg process exited with rc $rc"));
       upload2('$path/test.wav', "http://81.31.168.187/speech_recognition/file/upload/kaldi/", 1);
+    }
+    if(model3) {
+      Directory appDocumentsDirectory = await getApplicationDocumentsDirectory(); // 1
+      String path = appDocumentsDirectory.path;
+      // final FlutterFFmpeg _flutterFFmpeg = new FlutterFFmpeg();
+      // _flutterFFmpeg.execute("ffmpeg -i $path/test.wav $path/out.wav").then((rc) => print("FFmpeg process exited with rc $rc"));
+      upload2('$path/test.wav', "http://81.31.168.187/speech_recognition/file/upload/google/", 2);
     }
   }
 
@@ -204,46 +217,50 @@ class _RecordingScreenState extends State<RecordingScreen> {
     });
   }
 
-  void googleSpeechRecognition() async {
-    bool available = await _speech.initialize(
-      onStatus: (val) => print('onStatus: $val'),
-      onError: (val) => print('onError: $val'),
-      // debugLogging: true,
-    );
-    var locales = await _speech.locales();
-    var selectedLocale = locales[75];
-    for(var i=0; i<locales.length; i++) {
-      print(i);
-      print(" is ");
-      print(locales[i].name);
-      if(locales[i].name == 'Persian (Iran)') {
-        selectedLocale = locales[i];
-        break;
-      } else if(locales[i].name == 'فارسی (ایران)') {
-        selectedLocale = locales[i];
-        break;
-      }
-    }
-    if (available) {
-      _speech.listen(
-        onResult: (val) => setState(() {
-          print(val.recognizedWords);
-          setState(() {
-            model3_text = val.recognizedWords;
-          });
-          if (val.hasConfidenceRating && val.confidence > 0) {
-            // _confidence = val.confidence;
-          }
-        }),
-        localeId: selectedLocale.localeId,
-      );
-    }
+//   void googleSpeechRecognition() async {
+//     bool available = await _speech.initialize(
+//       onStatus: (val) => print('onStatus: $val'),
+//       onError: (val) => print('onError: $val'),
+//       // debugLogging: true,
+//     );
+//     var locales = await _speech.locales();
+//     var selectedLocale = locales[75];
+//     for(var i=0; i<locales.length; i++) {
+//       print(i);
+//       print(" is ");
+//       print(locales[i].name);
+//       if(locales[i].name == 'Persian (Iran)') {
+//         selectedLocale = locales[i];
+//         break;
+//       } else if(locales[i].name == 'فارسی (ایران)') {
+//         selectedLocale = locales[i];
+//         break;
+//       }
+//     }
+//     if (available) {
+//       _speech.listen(
+//         onResult: (val) => setState(() {
+//           print(val.recognizedWords);
+//           setState(() {
+//             model3_text = val.recognizedWords;
+//           });
+//           if (val.hasConfidenceRating && val.confidence > 0) {
+//             // _confidence = val.confidence;
+//           }
+//         }),
+//         localeId: selectedLocale.localeId,
+//       );
+//     }
+// }
+void recorddd() async {
+   recording();
+   // googleSpeechRecognition();
 }
 
   void handleAudioState(AudioState state) {
     if (audioState == AudioState.nulll) {
       if(model3) {
-        googleSpeechRecognition();
+        // googleSpeechRecognition();
       }
     }
     setState(() {
@@ -251,9 +268,9 @@ class _RecordingScreenState extends State<RecordingScreen> {
         // Starts recording
         audioState = AudioState.recording;
         // _recorder.start();
-        if(!model3) {
-          recording();
-        }
+        // if(!model3) {
+        recorddd();
+        // }
         // if((model1 || model2) && !model3) {
         //   recording();
         // }
@@ -262,10 +279,11 @@ class _RecordingScreenState extends State<RecordingScreen> {
         audioState = AudioState.play;
         // _recorder.stop();
         if(model3) {
-          _speech.stop();
-        } else {
-          stop();
+          // _speech.stop();
         }
+        // } else {
+          stop();
+        // }
         // else if(model1 || model2) {
         //   stop();
         // }
@@ -275,9 +293,9 @@ class _RecordingScreenState extends State<RecordingScreen> {
         _audioPlayer = AudioPlayer();
         // _audioPlayer.setUrl().then((duration) {
         //   return
-       if(!model3) {
+       // if(!model3) {
          play();
-       }
+       // }
         //);
         // Stop recorded audio
       } else if (audioState == AudioState.stop) {
@@ -437,7 +455,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                         shape: CircleBorder(),
                         padding: EdgeInsets.all(24),
                         onPressed: () async {
-                          bool result = await _record.hasPermission();
+                          // bool result = await _record.hasPermission();
                           handleAudioState(audioState);
                         },
                         child: getIcon(audioState),
@@ -459,9 +477,9 @@ class _RecordingScreenState extends State<RecordingScreen> {
                           onPressed: () => setState(() {
                             audioState = AudioState.nulll;
                             // _recorder.dispose();
-                            _record.dispose();
+                            // _record.dispose();
                             // _recorder = MicrophoneRecorder()..init();
-                            _record = Record();
+                            // _record = Record();
                           }),
                           child: Icon(Icons.replay, size: 50),
                         ),
@@ -556,7 +574,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: model3_text,
+                                    text:  (resp3)?resp3_text:'text'.tr,  //model3_text,
                                     style: TextStyle(
                                         fontSize: 15.5,
                                         fontWeight: FontWeight.normal,
