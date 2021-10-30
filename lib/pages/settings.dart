@@ -15,6 +15,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   Object? val = 0;
+  Object? val2 = 0;
   final box = GetStorage();
 
   bool model1 = true;
@@ -27,6 +28,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if(box.hasData('model1')) {
       if(box.read('model1') == 'true') {
         model1 = true;
+        val2 = 0;
       } else {
         model1 = false;
       }
@@ -34,6 +36,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if(box.hasData('model2')) {
       if(box.read('model2') == 'true') {
         model2 = true;
+        val2 = 1;
       } else {
         model2 = false;
       }
@@ -41,6 +44,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if(box.hasData('model3')) {
       if(box.read('model3') == 'true') {
         model3 = true;
+        val2 = 2;
       } else {
         model3 = false;
       }
@@ -213,15 +217,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Checkbox(
-                                value: this.model1,
+                              Radio(
+                                // value: this.model1,
+                                value: 0,
+                                groupValue: val2,
                                 onChanged: (value) {
                                   setState(() {
-                                    this.model1 = value!;
-                                    if(value==true) {
+                                    // this.model1 = value!;
+                                    // this.model1 = value;
+                                    val2 = value;
+                                    if(value==0) {
                                       box.write('model1', 'true');
-                                    } else {
+                                      box.write('model2', 'false');
+                                      box.write('model3', 'false');
+                                    } else if(value==1) {
                                       box.write('model1', 'false');
+                                      box.write('model2', 'true');
+                                      box.write('model3', 'false');
+                                    } else if(value==2) {
+                                      box.write('model1', 'false');
+                                      box.write('model2', 'false');
+                                      box.write('model3', 'true');
                                     }
                                   });
                                 },
@@ -242,16 +258,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Checkbox(
-                                value: this.model2,
+                              Radio(
+                                // value: this.model2,
+                                value: 1,
+                                groupValue: val2,
                                 onChanged: (value) {
                                   setState(() {
-                                    this.model2 = value!;
-                                    if(value==true) {
-                                      box.write('model2', 'true');
-                                    } else {
+                                    // this.model2 = value!;
+                                    val2 = value;
+                                    if(value==0) {
+                                      box.write('model1', 'true');
                                       box.write('model2', 'false');
+                                      box.write('model3', 'false');
+                                    } else if(value==1) {
+                                      box.write('model1', 'false');
+                                      box.write('model2', 'true');
+                                      box.write('model3', 'false');
+                                    } else if(value==2) {
+                                      box.write('model1', 'false');
+                                      box.write('model2', 'false');
+                                      box.write('model3', 'true');
                                     }
+                                    // if(value==true) {
+                                    //   box.write('model2', 'true');
+                                    //   box.write('model1', 'false');
+                                    //   box.write('model3', 'false');
+                                    // } else {
+                                    //   box.write('model2', 'false');
+                                    // }
                                   });
                                 },
                               ),
@@ -271,16 +305,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Checkbox(
-                                value: this.model3,
+                              Radio(
+                                // value: this.model3,
+                                value: 2,
+                                groupValue: val2,
                                 onChanged: (value) {
                                   setState(() {
-                                    this.model3 = value!;
-                                    if(value==true) {
-                                      box.write('model3', 'true');
-                                    } else {
+                                    // this.model3 = value!;
+                                    val2 = value;
+                                    if(value==0) {
+                                      box.write('model1', 'true');
+                                      box.write('model2', 'false');
                                       box.write('model3', 'false');
+                                    } else if(value==1) {
+                                      box.write('model1', 'false');
+                                      box.write('model2', 'true');
+                                      box.write('model3', 'false');
+                                    } else if(value==2) {
+                                      box.write('model1', 'false');
+                                      box.write('model2', 'false');
+                                      box.write('model3', 'true');
                                     }
+                                    // if(value==true) {
+                                    //   box.write('model3', 'true');
+                                    //   box.write('model1', 'false');
+                                    //   box.write('model2', 'false');
+                                    // } else {
+                                    //   box.write('model3', 'false');
+                                    // }
                                   });
                                 },
                               ),

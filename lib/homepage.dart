@@ -12,6 +12,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+//
+import 'package:path/path.dart';
+import 'package:async/async.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 enum AudioState { nulll, recording, stop, play }
 
@@ -52,10 +57,10 @@ class _RecordingScreenState extends State<RecordingScreen> {
     Directory appDocumentsDirectory = await getApplicationDocumentsDirectory(); // 1
     String path = appDocumentsDirectory.path;
     await _record.start(
-      path: '$path/test.mp3', // required
+      path: '$path/test.wav', // required
       encoder: AudioEncoder.AAC, // by default
       bitRate: 128000, // by default
-      samplingRate: 44100, // by default
+      samplingRate: 16000, // by default 44100
     );
   }
 
@@ -69,15 +74,54 @@ class _RecordingScreenState extends State<RecordingScreen> {
   //   return sdPath + "/test.mp3";
   // }
 
+  upload(File imageFile, URI) async {
+    // open a bytestream
+    var stream = new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
+    // get file length
+    var length = await imageFile.length();
+
+    // string to uri
+    var uri = Uri.parse(URI);
+
+    // create multipart request
+    var request = new http.MultipartRequest("POST", uri);
+
+    // multipart that takes file
+    var multipartFile = new http.MultipartFile('file', stream, length,
+        filename: basename(imageFile.path));
+
+    // add file to multipart
+    request.files.add(multipartFile);
+    request.fields.addAll({'remark':'a sample'});
+
+    // send
+    var response = await request.send();
+    print(response.statusCode);
+
+    // listen for response
+    response.stream.transform(utf8.decoder).listen((value) {
+      print(value);
+    });
+  }
 
   void stop() async {
     await _record.stop();
+    // initiate file upload
+    if(model1) {
+      Directory appDocumentsDirectory = await getApplicationDocumentsDirectory(); // 1
+      String path = appDocumentsDirectory.path;
+      upload(File('$path/test.wav'), "http://81.31.168.187/speech_recognition/file/upload/wave2vec/");
+    } else if(model2) {
+      Directory appDocumentsDirectory = await getApplicationDocumentsDirectory(); // 1
+      String path = appDocumentsDirectory.path;
+      upload(File('$path/test.wav'), "http://81.31.168.187/speech_recognition/file/upload/kaldi/");
+    }
   }
 
   void play() async {
     Directory appDocumentsDirectory = await getApplicationDocumentsDirectory(); // 1
     String path = appDocumentsDirectory.path;
-    await _audioPlayer.play('$path/test.mp3', isLocal: true).then((_) => {
+    await _audioPlayer.play('$path/test.wav', isLocal: true).then((_) => {
       setState(() => audioState = AudioState.stop)
     });
   }
@@ -120,16 +164,18 @@ class _RecordingScreenState extends State<RecordingScreen> {
 
   void handleAudioState(AudioState state) {
     if (audioState == AudioState.nulll) {
-      // if(model3) {
+      if(model3) {
         googleSpeechRecognition();
-      // }
+      }
     }
     setState(() {
       if (audioState == AudioState.nulll) {
         // Starts recording
         audioState = AudioState.recording;
         // _recorder.start();
-        // recording();
+        if(!model3) {
+          recording();
+        }
         // if((model1 || model2) && !model3) {
         //   recording();
         // }
@@ -137,10 +183,12 @@ class _RecordingScreenState extends State<RecordingScreen> {
       } else if (audioState == AudioState.recording) {
         audioState = AudioState.play;
         // _recorder.stop();
-        // stop();
-        // if(model3) {
+        if(model3) {
           _speech.stop();
-        // } else if(model1 || model2) {
+        } else {
+          stop();
+        }
+        // else if(model1 || model2) {
         //   stop();
         // }
         // Play recorded audio
@@ -149,7 +197,9 @@ class _RecordingScreenState extends State<RecordingScreen> {
         _audioPlayer = AudioPlayer();
         // _audioPlayer.setUrl().then((duration) {
         //   return
-        play();
+       if(!model3) {
+         play();
+       }
         //);
         // Stop recorded audio
       } else if (audioState == AudioState.stop) {
@@ -184,6 +234,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
         model3 = false;
       }
     }
+
     return Scaffold(
         backgroundColor: const Color(0xfff3ffff),
         appBar: AppBar(
