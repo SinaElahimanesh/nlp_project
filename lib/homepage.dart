@@ -1,5 +1,7 @@
+// import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
+import 'dart:convert';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:path/path.dart';
 import 'package:async/async.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:flutter_sound_lite/flutter_sound.dart' as flutter_sound;
 
 enum AudioState { nulll, recording, stop, play }
 
@@ -43,6 +45,13 @@ class _RecordingScreenState extends State<RecordingScreen> {
   //
   var model3_text = 'text'.tr;
 
+  late bool resp1 = false;
+  late bool resp2 = false;
+  late String resp1_text = '';
+  late String resp2_text = '';
+
+  late flutter_sound.FlutterSoundRecorder flutterSoundRecorder;
+
   @override
   void initState() {
     super.initState();
@@ -50,17 +59,27 @@ class _RecordingScreenState extends State<RecordingScreen> {
     // Check and request permission
     _record = Record();
     _speech = stt.SpeechToText();
+    flutterSoundRecorder = flutter_sound.FlutterSoundRecorder();
+    flutterSoundRecorder.openAudioSession().then((value) {
+      setState(() {
+        // _mRecorderIsInited = true;
+      });
+    });
     //
   }
 
   void recording() async {
     Directory appDocumentsDirectory = await getApplicationDocumentsDirectory(); // 1
     String path = appDocumentsDirectory.path;
-    await _record.start(
-      path: '$path/test.wav', // required
-      encoder: AudioEncoder.AAC, // by default
-      bitRate: 128000, // by default
-      samplingRate: 16000, // by default 44100
+    // await _record.start(
+    //   path: '$path/test.mp3', // required
+    //   encoder: AudioEncoder.AAC, // by default
+    //   bitRate: 128000, // by default
+    //   samplingRate: 16000, // by default 44100
+    // );
+    await flutterSoundRecorder.startRecorder(
+      toFile: '$path/test.wav',
+      codec: flutter_sound.Codec.pcm16WAV,
     );
   }
 
@@ -104,17 +123,76 @@ class _RecordingScreenState extends State<RecordingScreen> {
     });
   }
 
+  upload2 (String filename, String url, int which) async {
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+    request.files.add(
+        await http.MultipartFile.fromPath(
+            'file',
+            filename
+        )
+    );
+  print(request.files.first.filename);
+    // request.headers['Accept'] = '*/*';
+    // request.headers['Content-Type'] = 'multipart/form-data';
+    // request.headers['Connection'] = 'keep-alive';
+      request.fields['remark'] = 'filename';
+      var res = await request.send();
+      print(res.statusCode);
+      res.stream.transform(utf8.decoder).listen((value) {
+        print(value);
+        setState(() {
+          if(which==0) {
+            resp1 = true;
+            resp1_text = value;
+          } else if(which==1) {
+            resp2 = true;
+            resp2_text = value;
+          }
+        });
+      });
+  }
+
   void stop() async {
-    await _record.stop();
+    // await _record.stop();
+    await flutterSoundRecorder.stopRecorder();
     // initiate file upload
+
     if(model1) {
       Directory appDocumentsDirectory = await getApplicationDocumentsDirectory(); // 1
       String path = appDocumentsDirectory.path;
-      upload(File('$path/test.wav'), "http://81.31.168.187/speech_recognition/file/upload/wave2vec/");
+      // final FlutterFFmpeg _flutterFFmpeg = new FlutterFFmpeg();
+      //
+      // await _flutterFFmpeg.execute("-i $path/test.mp3 $path/out.wav").then((rc) => print("FFmpeg process exited with rc $rc"));
+      // print(File('$path/out.wav'));
+      upload2('$path/test.wav', "http://81.31.168.187/speech_recognition/file/upload/wave2vec/", 0);
+
+      // FFmpegKit.executeAsync('-i $path/test.mp3 -c:v $path/out.wav', (session) async {
+      //   final returnCode = await session.getReturnCode();
+      //   print(returnCode);
+      //   // if (ReturnCode.isSuccess(returnCode)) {
+      //   //
+      //   //   // SUCCESS
+      //   //
+      //   // } else if (ReturnCode.isCancel(returnCode)) {
+      //   //
+      //   //   // CANCEL
+      //   //
+      //   // } else {
+      //   //
+      //   //   // ERROR
+      //   //
+      //   // }
+      //   print(File('$path/out.wav'));
+      //   upload2('$path/out.wav', "http://81.31.168.187/speech_recognition/file/upload/wave2vec/");
+      // });
+      // _flutterFFmpeg.execute("ffmpeg -i $path/test.wav $path/out.wav").then((rc) => print("FFmpeg process exited with rc $rc"));
+
     } else if(model2) {
       Directory appDocumentsDirectory = await getApplicationDocumentsDirectory(); // 1
       String path = appDocumentsDirectory.path;
-      upload(File('$path/test.wav'), "http://81.31.168.187/speech_recognition/file/upload/kaldi/");
+      // final FlutterFFmpeg _flutterFFmpeg = new FlutterFFmpeg();
+      // _flutterFFmpeg.execute("ffmpeg -i $path/test.wav $path/out.wav").then((rc) => print("FFmpeg process exited with rc $rc"));
+      upload2('$path/test.wav', "http://81.31.168.187/speech_recognition/file/upload/kaldi/", 1);
     }
   }
 
@@ -416,7 +494,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: 'text'.tr,
+                                    text: (resp1)?resp1_text:'text'.tr,
                                     style: TextStyle(
                                         fontSize: 15.5,
                                         fontWeight: FontWeight.normal,
@@ -447,7 +525,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                               ),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: 'text'.tr,
+                                  text: (resp2)?resp2_text:'text'.tr,
                                   style: TextStyle(
                                       fontSize: 15.5,
                                       fontWeight: FontWeight.normal,
