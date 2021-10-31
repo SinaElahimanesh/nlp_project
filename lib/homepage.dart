@@ -512,7 +512,7 @@ void recorddd() async {
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: (resp1)? ((resp1_text.length<50)?resp1_text:'error'.tr):'text'.tr,
+                                    text: (resp1)? ((resp1_text.length<100)?resp1_text:'error'.tr):'text'.tr,
                                     style: TextStyle(
                                         fontSize: 15.5,
                                         fontWeight: FontWeight.normal,
@@ -543,7 +543,7 @@ void recorddd() async {
                               ),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: (resp2)? ((resp2_text.length<50)?resp2_text:'error'.tr):'text'.tr,
+                                  text: (resp2)? ((resp2_text.length<100)?resp2_text:'error'.tr):'text'.tr,
                                   style: TextStyle(
                                       fontSize: 15.5,
                                       fontWeight: FontWeight.normal,
@@ -574,7 +574,7 @@ void recorddd() async {
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: (resp3)? ((resp3_text.length<50)?resp3_text:'error'.tr):'text'.tr,  //model3_text,
+                                    text: (resp3)? ((resp3_text.length<100)?resp3_text:'error'.tr):'text'.tr,  //model3_text,
                                     style: TextStyle(
                                         fontSize: 15.5,
                                         fontWeight: FontWeight.normal,
