@@ -34,6 +34,7 @@ class LocaleString extends Translations{
       'model1_title': 'Model number 1:  ',
       'model2_title': 'Model number 2:  ',
       'model3_title': 'Google:  ',
+      'error': 'There was an error occurred.',
     },
 
     //PERSIAN LANGUAGE
@@ -62,6 +63,7 @@ class LocaleString extends Translations{
       'model1_title': 'مدل شماره ۱:  ',
       'model2_title': 'مدل شماره ۲:  ',
       'model3_title': 'گوگل:  ',
+      'error': 'یک خطا رخ داده است.',
     },
   };
 }
