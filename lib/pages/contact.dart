@@ -18,7 +18,7 @@ class ContactScreen extends StatelessWidget {
           title: Text(
             'title'.tr,
             style: TextStyle(
-                fontSize: 18.0,
+                fontSize: MediaQuery.of(context).size.width<350? 14: 18,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
                 fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -31,14 +31,14 @@ class ContactScreen extends StatelessWidget {
                 Container(
                     color: Colors.white,
                     width: double.infinity,
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 40),
-                    margin: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                    padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width<350? 7: 20, 20, MediaQuery.of(context).size.width<350? 7: 20, 40),
+                    margin: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width<350? 3: 10, 20, MediaQuery.of(context).size.width<350? 3: 10, 10),
                     child: Column(
                         children: [
                           Text(
                             'contact_title'.tr,
                             style: TextStyle(
-                                fontSize: 18.0,
+                                fontSize: MediaQuery.of(context).size.width<350? 14: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                                 fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -65,7 +65,7 @@ class ContactScreen extends StatelessWidget {
                                       Text(
                                         'contact1'.tr,
                                         style: TextStyle(
-                                            fontSize: 18.0,
+                                            fontSize: MediaQuery.of(context).size.width<350? 14: 18,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black,
                                             fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -94,7 +94,7 @@ class ContactScreen extends StatelessWidget {
                                       Text(
                                         'contact2'.tr,
                                         style: TextStyle(
-                                            fontSize: 18.0,
+                                            fontSize: MediaQuery.of(context).size.width<350? 14: 18,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black,
                                             fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -123,7 +123,7 @@ class ContactScreen extends StatelessWidget {
                                       Text(
                                         'contact3'.tr,
                                         style: TextStyle(
-                                            fontSize: 18.0,
+                                            fontSize: MediaQuery.of(context).size.width<350? 14: 18,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black,
                                             fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -175,7 +175,7 @@ class ContactScreen extends StatelessWidget {
                         'Ⓒ 2021 NLP Team',
                         textAlign: TextAlign.justify,
                         style: TextStyle(
-                            fontSize: 16.5,
+                            fontSize: MediaQuery.of(context).size.width<350? 13.0: 16.5,
                             // fontWeight: FontWeight.bold,
                             color: Colors.grey,
                             fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'

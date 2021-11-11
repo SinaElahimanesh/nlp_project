@@ -51,6 +51,9 @@ class _RecordingScreenState extends State<RecordingScreen> {
   late String resp1_text = '';
   late String resp2_text = '';
   late String resp3_text = '';
+  late int status_code1 = 201;
+  late int status_code2 = 201;
+  late int status_code3 = 201;
 
   late flutter_sound.FlutterSoundRecorder flutterSoundRecorder;
 
@@ -146,12 +149,15 @@ class _RecordingScreenState extends State<RecordingScreen> {
           if(which==0) {
             resp1 = true;
             resp1_text = value;
+            status_code1 = res.statusCode;
           } else if(which==1) {
             resp2 = true;
             resp2_text = value;
+            status_code2 = res.statusCode;
           } else if(which==2) {
             resp3 = true;
             resp3_text = value;
+            status_code3 = res.statusCode;
           }
         });
       });
@@ -342,7 +348,7 @@ void recorddd() async {
           title: Text(
             'title'.tr,
             style: TextStyle(
-                fontSize: 18.0,
+                fontSize: MediaQuery.of(context).size.width<350? 14: 18,
                 // fontWeight: FontWeight.bold,
                 color: Colors.white,
                 fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -364,14 +370,14 @@ void recorddd() async {
                               children: [
                                 Icon(
                                   Icons.campaign,
-                                  size: 80.0,
+                                  size: MediaQuery.of(context).size.width<350? 45.0: 80.0,
                                   color: Colors.white,
                                 ),
                                 Padding(padding: EdgeInsets.only(top: 5.0)),
                                 Text(
                                   'drawer'.tr,
                                   style: TextStyle(
-                                      fontSize: 18.0,
+                                      fontSize: MediaQuery.of(context).size.width<350? 14: 18,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                       fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -386,7 +392,7 @@ void recorddd() async {
                   title: Text(
                     'item1'.tr,
                     style: TextStyle(
-                        fontSize: 18.0,
+                        fontSize: MediaQuery.of(context).size.width<350? 14: 18,
                         fontWeight: FontWeight.bold,
                         color: const Color(0xff55c4cd),
                         fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -403,7 +409,7 @@ void recorddd() async {
                   title: Text(
                     'item2'.tr,
                     style: TextStyle(
-                        fontSize: 18.0,
+                        fontSize: MediaQuery.of(context).size.width<350? 14: 18,
                         fontWeight: FontWeight.bold,
                         color: const Color(0xff55c4cd),
                         fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -419,7 +425,7 @@ void recorddd() async {
                   title: Text(
                     'item3'.tr,
                     style: TextStyle(
-                        fontSize: 18.0,
+                        fontSize: MediaQuery.of(context).size.width<350? 14: 18,
                         fontWeight: FontWeight.bold,
                         color: const Color(0xff55c4cd),
                         fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -437,7 +443,7 @@ void recorddd() async {
         body: Stack(
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 32.0),
+              padding: EdgeInsets.only(top: MediaQuery.of(context).size.width<350? 16.0: 32.0),
               child: Center(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -445,7 +451,7 @@ void recorddd() async {
                   children: [
                     AnimatedContainer(
                       duration: Duration(milliseconds: 300),
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.all(MediaQuery.of(context).size.width<350? 13.0: 20),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: handleAudioColour(),
@@ -453,7 +459,7 @@ void recorddd() async {
                       child: RawMaterialButton(
                         fillColor: Colors.white,
                         shape: CircleBorder(),
-                        padding: EdgeInsets.all(24),
+                        padding: EdgeInsets.all(MediaQuery.of(context).size.width<350? 12.0: 24),
                         onPressed: () async {
                           // bool result = await _record.hasPermission();
                           handleAudioState(audioState);
@@ -461,11 +467,11 @@ void recorddd() async {
                         child: getIcon(audioState),
                       ),
                     ),
-                    SizedBox(width: 20),
+                    SizedBox(width: MediaQuery.of(context).size.width<350? 10.0: 20),
                     if (audioState == AudioState.play ||
                         audioState == AudioState.stop)
                       Container(
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(MediaQuery.of(context).size.width<350? 10.0: 20),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: primaryColor,
@@ -473,7 +479,7 @@ void recorddd() async {
                         child: RawMaterialButton(
                           fillColor: Colors.white,
                           shape: CircleBorder(),
-                          padding: EdgeInsets.all(24),
+                          padding: EdgeInsets.all(MediaQuery.of(context).size.width<350? 12.0: 24),
                           onPressed: () => setState(() {
                             audioState = AudioState.nulll;
                             // _recorder.dispose();
@@ -481,7 +487,7 @@ void recorddd() async {
                             // _recorder = MicrophoneRecorder()..init();
                             // _record = Record();
                           }),
-                          child: Icon(Icons.replay, size: 50),
+                          child: Icon(Icons.replay, size: MediaQuery.of(context).size.width<350? 25.0: 25),
                         ),
                       ),
                   ],
@@ -497,8 +503,8 @@ void recorddd() async {
                     Visibility(
                         visible: model1,
                         child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
-                          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+                            margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width<350? 2.0: 5.0, horizontal: MediaQuery.of(context).size.width<350? 2.0: 5.0),
+                            padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width<350? 3.0: 8.0, horizontal: MediaQuery.of(context).size.width<350? 3.0: 12.0),
                           color: const Color(0xff55c4cd),
                           width: double.infinity,
                             child: RichText(
@@ -506,15 +512,15 @@ void recorddd() async {
                                 text: 'model1_title'.tr,
                                 style: TextStyle(
                                     color: Colors.red,
-                                    fontSize: 17.5,
+                                    fontSize: MediaQuery.of(context).size.width<350? 14: 17.5,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: (resp1)? ((resp1_text.length<100)?resp1_text:'error'.tr):'text'.tr,
+                                    text: (resp1)? ((status_code1==201)?resp1_text:'error'.tr):'text'.tr,
                                     style: TextStyle(
-                                        fontSize: 15.5,
+                                        fontSize: MediaQuery.of(context).size.width<350? 12: 15.5,
                                         fontWeight: FontWeight.normal,
                                         color: Colors.white,
                                         fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -528,8 +534,8 @@ void recorddd() async {
                     Visibility(
                         visible: model2,
                         child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
-                          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+                            margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width<350? 2.0: 5.0, horizontal: MediaQuery.of(context).size.width<350? 2.0: 5.0),
+                            padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width<350? 3.0: 8.0, horizontal: MediaQuery.of(context).size.width<350? 3.0: 12.0),
                           color: const Color(0xff55c4cd),
                           width: double.infinity,
                           child: RichText(
@@ -537,15 +543,15 @@ void recorddd() async {
                               text: 'model2_title'.tr,
                               style: TextStyle(
                                   color: Colors.red,
-                                  fontSize: 17.5,
+                                  fontSize: MediaQuery.of(context).size.width<350? 14: 17.5,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
                               ),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: (resp2)? ((resp2_text.length<100)?resp2_text:'error'.tr):'text'.tr,
+                                  text: (resp2)? ((status_code2==201)?resp2_text:'error'.tr):'text'.tr,
                                   style: TextStyle(
-                                      fontSize: 15.5,
+                                      fontSize: MediaQuery.of(context).size.width<350? 12: 15.5,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.white,
                                       fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -559,8 +565,8 @@ void recorddd() async {
                     Visibility(
                         visible: model3,
                         child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
-                          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+                          margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width<350? 2.0: 5.0, horizontal: MediaQuery.of(context).size.width<350? 2.0: 5.0),
+                          padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width<350? 3.0: 8.0, horizontal: MediaQuery.of(context).size.width<350? 3.0: 12.0),
                           color: const Color(0xff55c4cd),
                           width: double.infinity,
                             child: RichText(
@@ -568,15 +574,15 @@ void recorddd() async {
                                 text: 'model3_title'.tr,
                                 style: TextStyle(
                                     color: Colors.red,
-                                    fontSize: 17.5,
+                                    fontSize: MediaQuery.of(context).size.width<350? 14: 17.5,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: (resp3)? ((resp3_text.length<100)?resp3_text:'error'.tr):'text'.tr,  //model3_text,
+                                    text: (resp3)? ((status_code3==201)?resp3_text:'error'.tr):'text'.tr,  //model3_text,
                                     style: TextStyle(
-                                        fontSize: 15.5,
+                                        fontSize: MediaQuery.of(context).size.width<350? 12: 15.5,
                                         fontWeight: FontWeight.normal,
                                         color: Colors.white,
                                         fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'

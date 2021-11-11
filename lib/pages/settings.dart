@@ -59,7 +59,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: Text(
             'title'.tr,
             style: TextStyle(
-                fontSize: 18.0,
+                fontSize: MediaQuery.of(context).size.width<350? 14: 18,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
                 fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -79,7 +79,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           Text(
                             'settings_title'.tr,
                             style: TextStyle(
-                                fontSize: 18.0,
+                                fontSize: MediaQuery.of(context).size.width<350? 14.0: 18.0,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                                 fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -98,7 +98,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             child: Text(
                               'lang_description'.tr,
                               style: TextStyle(
-                                  fontSize: 16.5,
+                                  fontSize: MediaQuery.of(context).size.width<350? 13.0: 16.5,
                                   color: Colors.black,
                                   fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
                               ),
@@ -118,7 +118,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           Text(
                                             'lang_fa'.tr,
                                             style: TextStyle(
-                                                fontSize: 18.0,
+                                                fontSize: MediaQuery.of(context).size.width<350? 14.0: 18.0,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.black,
                                                 fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -159,7 +159,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           Text(
                                             'lang_en'.tr,
                                             style: TextStyle(
-                                                fontSize: 18.0,
+                                                fontSize: MediaQuery.of(context).size.width<350? 14.0: 18.0,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.black,
                                                 fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -201,7 +201,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             child: Text(
                               'model_description'.tr,
                               style: TextStyle(
-                                  fontSize: 17.0,
+                                  fontSize: MediaQuery.of(context).size.width<350? 13.5: 17.0,
                                   color: Colors.black,
                                   fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
                               ),
@@ -229,7 +229,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               Text(
                                 'model1'.tr,
                                 style: TextStyle(
-                                    fontSize: 16.5,
+                                    fontSize: MediaQuery.of(context).size.width<350? 13.0: 16.5,
                                     color: Colors.black,
                                     fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
                                 ),
@@ -258,7 +258,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               Text(
                                 'model2'.tr,
                                 style: TextStyle(
-                                    fontSize: 16.5,
+                                    fontSize: MediaQuery.of(context).size.width<350? 13.0: 16.5,
                                     color: Colors.black,
                                     fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
                                 ),
@@ -287,7 +287,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               Text(
                                 'model3'.tr,
                                 style: TextStyle(
-                                    fontSize: 16.5,
+                                    fontSize: MediaQuery.of(context).size.width<350? 13.0: 16.5,
                                     color: Colors.black,
                                     fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
                                 ),
@@ -307,7 +307,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         'Ⓒ 2021 NLP Team'.tr,
                         textAlign: TextAlign.justify,
                         style: TextStyle(
-                            fontSize: 16.5,
+                            fontSize: MediaQuery.of(context).size.width<350? 13.0: 16.5,
                             // fontWeight: FontWeight.bold,
                             color: Colors.grey,
                             fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'

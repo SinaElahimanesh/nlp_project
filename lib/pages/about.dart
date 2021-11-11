@@ -18,7 +18,7 @@ class AboutScreen extends StatelessWidget {
           title: Text(
             'title'.tr,
             style: TextStyle(
-                fontSize: 18.0,
+                fontSize: MediaQuery.of(context).size.width<350? 14.0: 18.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
                 fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -38,7 +38,7 @@ class AboutScreen extends StatelessWidget {
                           Text(
                             'about_title'.tr,
                             style: TextStyle(
-                                fontSize: 18.0,
+                                fontSize: MediaQuery.of(context).size.width<350? 14.0: 18.0,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                                 fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -55,7 +55,7 @@ class AboutScreen extends StatelessWidget {
                             'about'.tr,
                             textAlign: TextAlign.justify,
                             style: TextStyle(
-                                fontSize: 16.0,
+                                fontSize: MediaQuery.of(context).size.width<350? 13.5: 16.0,
                                 // fontWeight: FontWeight.bold,
                                 color: Colors.black,
                                 fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
@@ -73,7 +73,7 @@ class AboutScreen extends StatelessWidget {
                         'Ⓒ 2021 NLP Team'.tr,
                         textAlign: TextAlign.justify,
                         style: TextStyle(
-                            fontSize: 16.5,
+                            fontSize: MediaQuery.of(context).size.width<350? 13.0: 16.5,
                             // fontWeight: FontWeight.bold,
                             color: Colors.grey,
                             fontFamily: Get.locale==Locale('fa','IR')? 'Vazir' : 'Raleway'
